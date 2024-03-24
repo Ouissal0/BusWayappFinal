@@ -1,5 +1,6 @@
 package Modele.DAO;
 
+import ConnectionDb.ConnectionDb;
 import Modele.BO.Station;
 import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.Driver;
@@ -21,8 +22,11 @@ public class Neo4jStationFinder {
     private final Driver driver;
     private Map<Station, List<Station>> stationMap;
 
-    public Neo4jStationFinder(String uri, String user, String password) {
-        driver = GraphDatabase.driver(uri, AuthTokens.basic(user, password));
+    public Neo4jStationFinder()
+    {
+        ConnectionDb neo4j=new ConnectionDb();
+        driver= neo4j.getDriver();
+
     }
 
     public void close() {
@@ -46,7 +50,8 @@ public class Neo4jStationFinder {
                 Station station = new Station(
                         stationNode.get("nom").asString(),
                         stationNode.get("latitude").asDouble(),
-                        stationNode.get("longitude").asDouble()
+                        stationNode.get("longitude").asDouble(),
+                        stationNode.get("end").asInt()
                 );
 
                 String destinationsQuery = "MATCH path=(start:STATION {nom: $stationId})-[:NEXT*]->(d:STATION) " +
@@ -62,7 +67,8 @@ public class Neo4jStationFinder {
                     Station destStation = new Station(
                             destNode.get("nom").asString(),
                             destNode.get("latitude").asDouble(),
-                            destNode.get("longitude").asDouble()
+                            destNode.get("longitude").asDouble(),
+                            destNode.get("end").asInt()
                     );
                     destinations.add(destStation);
                 }
@@ -71,26 +77,25 @@ public class Neo4jStationFinder {
             }
 
         }
+
         return stationMap;
     }
-
-    public static void main(String... args) {
-        Neo4jStationFinder neo4j = new Neo4jStationFinder("bolt://localhost:7687", "neo4j", "12398765");
-
-        double passengerLat = 10.5678;
-        double passengerLon = 47.3456;
-
-        Map<Station, List<Station>> closestStations = neo4j.findClosestStationsWithDestinations(passengerLat, passengerLon);
-
-        for (Map.Entry<Station, List<Station>> entry : closestStations.entrySet()) {
-            System.out.println("Closest Station: " + entry.getKey().getStation());
-            System.out.println("Destinations:");
-            for (Station station : entry.getValue()) {
-                System.out.println(" - " + station.getStation());
+    public List<Station> getAllStations() {
+        List<Station> stations = new ArrayList<>();
+        try (Session session = driver.session()) {
+            Result result = session.run("MATCH (s:STATION) RETURN s.nom AS nom, s.latitude AS latitude, s.longitude AS longitude,s.end as End");
+            while (result.hasNext()) {
+                Record record = result.next();
+                String nom = record.get("nom").asString();
+                double latitude = record.get("latitude").asDouble();
+                double longitude = record.get("longitude").asDouble();
+                int end=record.get("End").asInt();
+                stations.add(new Station(nom, latitude, longitude,end));
             }
         }
+        return stations;
+    }
 
 
 
-        neo4j.close();
-    }}
+}

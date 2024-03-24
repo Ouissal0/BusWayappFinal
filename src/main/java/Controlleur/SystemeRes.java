@@ -36,7 +36,7 @@ public class SystemeRes {
             System.out.println("Liste des voyages :");
             for (Voyage voyage : voyages) {
                 // Utilisation de la méthode afficherVoyage pour chaque voyage
-                voyage.afficherVoyage();
+                System.out.println(voyage);
             }
         }
     }

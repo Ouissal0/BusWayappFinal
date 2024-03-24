@@ -15,11 +15,11 @@ public class NearestStationsServlet extends HttpServlet {
     private Neo4jStationFinder stationFinder;
 
     public void init() {
-        stationFinder = new Neo4jStationFinder("bolt://localhost:7687", "neo4j", "password");
+       // stationFinder = new Neo4jStationFinder("bolt://localhost:7687", "neo4j", "password");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        double latitude = 10.5678;
+            double latitude = 10.5678;
         double longitude = 47.3456;
 
         Map<Station, List<Station>> closestStationsMap = stationFinder.findClosestStationsWithDestinations(latitude, longitude);

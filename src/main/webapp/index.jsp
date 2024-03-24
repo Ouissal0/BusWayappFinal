@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,7 +90,7 @@
         <label for="nearestStation">Nearest Stations </label>
         <select name="nearestStation" id="nearestStation">
             <c:forEach var="station" items="${nearestStations}">
-                <option value="${station.id}">${station.nom}</option>
+                <option value="${station.getStation()}">${station.getStation()}</option>
             </c:forEach>
         </select>
 

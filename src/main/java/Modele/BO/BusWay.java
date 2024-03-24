@@ -22,13 +22,14 @@ public class BusWay {
         // Récupération des bus depuis Neo4j
         try (Driver driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j", "12398765"))) {
             try (Session session = driver.session()) {
-                String query = "MATCH (bus:BUS) RETURN bus.matricule AS matricule, bus.capacite AS capacite";
+                String query = "MATCH (bus:BUS) RETURN bus.matricule AS matricule, bus.capacite AS capacite,bus.nom as nom";
                 Result result = session.run(query);
                 while (result.hasNext()) {
                     Record record = result.next();
                     String matricule = record.get("matricule").asString();
                     int capacite = record.get("capacite").asInt();
-                    Bus bus = new Bus(matricule, capacite);
+                    String nom=record.get("nom").asString();
+                    Bus bus = new Bus(matricule, capacite,nom);
                     LesBus.add(bus);
                 }
             }
@@ -46,7 +47,7 @@ public class BusWay {
                     double latitude = record.get("latitude").asDouble();
 
                     // Convertir l'entier en booléen
-                    boolean estFinale = record.get("estFinale").asInt() == 1;
+                    int estFinale = record.get("estFinale").asInt();
 
                     Station station = new Station(nom, longitude, latitude, estFinale);
                     Stations.add(station);

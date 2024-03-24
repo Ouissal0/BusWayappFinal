@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Vue.ReserverForm">
-  <grid id="27dc6" binding="MainPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="panel1" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
@@ -93,7 +93,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="d4e6b" class="javax.swing.JComboBox" binding="stationsLesPlusProchesComboBox" default-binding="true">
+                      <component id="d4e6b" class="javax.swing.JComboBox" binding="StationProcheComboBox">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -149,7 +149,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="8ec9e" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+                      <component id="8ec9e" class="javax.swing.JComboBox" binding="StationsDestcomboBox">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -194,7 +194,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="59dd0" class="javax.swing.JButton" binding="réserverTicketButton" default-binding="true">
+                      <component id="59dd0" class="javax.swing.JButton" binding="Chercher">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -202,7 +202,7 @@
                           <background color="-4731947"/>
                           <font name="Georgia Pro Semibold" size="14"/>
                           <hideActionText value="false"/>
-                          <text value="Réserver Ticket"/>
+                          <text value="Chercher"/>
                         </properties>
                       </component>
                     </children>

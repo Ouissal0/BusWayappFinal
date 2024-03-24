@@ -1,25 +1,47 @@
 package Modele.BO;
+
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-public class Voyage
-{
+import  java.time.LocalTime;
+
+public class Voyage {
 	private int NumV;
-	private  Bus B;
+	private Bus B;
 	private Station StationDepart;
 	private Station StationArr;
 	private LocalDate DateV;
 	private Conducteur C;
 	private List<Arret> Arrets;
+	private LocalTime heureDepart;  // Supposant que vous voulez ajouter l'heure de départ du voyage
+	private LocalTime heureArrivee;  // Supposant que vous voulez ajouter l'heure d'arrivée du voyage
 
-	public Voyage(int numV, LocalDate dateV, Conducteur c,Bus b) {
+	public Voyage(int numV, Bus b, LocalDate dateV, Conducteur c) {
 		NumV = numV;
 		DateV = dateV;
 		C = c;
-		B=b;
-		Arrets=new ArrayList<Arret>();
+		B = b;
+		Arrets = new ArrayList<>();
 	}
+
+	// Getters et setters pour heureDepart et heureArrivee
+	public LocalTime getHeureDepart() {
+		return heureDepart;
+	}
+
+	public void setHeureDepart(LocalTime heureDepart) {
+		this.heureDepart = heureDepart;
+	}
+
+	public LocalTime getHeureArrivee() {
+		return heureArrivee;
+	}
+
+	public void setHeureArrivee(LocalTime heureArrivee) {
+		this.heureArrivee = heureArrivee;
+	}
+
+	// Les autres getters et setters...
 
 	public Station getStationDepart() {
 		return StationDepart;
@@ -37,24 +59,45 @@ public class Voyage
 		StationArr = stationArr;
 	}
 
-	public Bus getB()
-	{
-		return B;
+	@Override
+	public String toString() {
+		return "Voyage{" +
+				"NumV=" + NumV +
+				", Bus=" + B.getMatricule() +
+				", Capacité=" + B.getNbrPlacesLimite() +
+				", StationDepart=" + StationDepart.getStation() +
+				", LatitudeDepart=" + StationDepart.getLatitude() +
+				", LongitudeDepart=" + StationDepart.getLongitude() +
+				", StationArr=" + (StationArr != null ? StationArr.getStation() : "Non défini") +
+				", LatitudeArr=" + (StationArr != null ? StationArr.getLatitude() : "Non défini") +
+				", LongitudeArr=" + (StationArr != null ? StationArr.getLongitude() : "Non défini") +
+				", DateV=" + DateV +
+				", Conducteur=" + (C != null ? C.getNom() : "Non défini") +
+				'}';
 	}
 
-	public void setB(Bus b)
-	{
-		B = b;
+	public List<Arret> getArrets() {
+		return Arrets;
 	}
 
-	public int getNumV()
-	{
+	public void setArrets(List<Arret> arrets) {
+		Arrets = arrets;
+	}
+
+	public int getNumV() {
 		return NumV;
 	}
 
-	public void setNumV(int numV)
-	{
+	public void setNumV(int numV) {
 		NumV = numV;
+	}
+
+	public Bus getB() {
+		return B;
+	}
+
+	public void setB(Bus b) {
+		B = b;
 	}
 
 	public LocalDate getDateV() {
@@ -72,29 +115,4 @@ public class Voyage
 	public void setC(Conducteur c) {
 		C = c;
 	}
-
-	public List<Arret> getArrets() {
-		return Arrets;
-	}
-
-	public void setArrets(List<Arret> arrets) {
-		Arrets = arrets;
-	}
-
-	// Méthode pour afficher toutes les informations du voyage
-	public void afficherVoyage() {
-		System.out.println("Numéro de voyage: " + NumV);
-		System.out.println("Date du voyage: " + DateV);
-		System.out.println("Conducteur: " + C.getNom()); // Supposant que la classe Conducteur a une méthode getNom()
-		System.out.println("Bus: " + B.getMatricule()); // Supposant que la classe Bus a une méthode getMatricule()
-		System.out.println("Station de départ: " + StationDepart.getStation()); // Supposant que la classe Station a une méthode getNom()
-		System.out.println("Station d'arrivée: " + StationArr.getStation()); // Supposant que la classe Station a une méthode getNom()
-
-		System.out.println("Arrets:");
-		for (Arret arret : Arrets) {
-			System.out.println("Heure: " + arret.getHeureArret() + ", Station: " + arret.getS().getStation());
-		}
-	}
-
-
 }

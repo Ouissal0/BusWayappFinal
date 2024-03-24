@@ -7,17 +7,12 @@ public class Station {
 	private String Station;
 	private double longitude;
 	private double latitude;
-	private boolean estFinale; // true si c'est une station finale, false sinon
+	private int estFinale; // true si c'est une station finale, false sinon
 	private List<Voyage> VoyagesDepart;
 	private List<Voyage> VoyagesArrives;
 
-	public Station(String station, double latitude, double longitude) {
-		super();
-		Station = station;
-	}
 
-
-	public Station(String station, double longitude, double latitude, boolean estFinale) {
+	public Station(String station, double longitude, double latitude, int estFinale) {
 		super();
 		Station = station;
 		this.longitude = longitude;
@@ -46,12 +41,12 @@ public class Station {
 	}
 
 
-	public boolean isEstFinale() {
+	public int isEstFinale() {
 		return estFinale;
 	}
 
 
-	public void setEstFinale(boolean estFinale) {
+	public void setEstFinale(int estFinale) {
 		this.estFinale = estFinale;
 	}
 
@@ -64,6 +59,9 @@ public class Station {
 		Station = station;
 	}
 
-
-
+	@Override
+	public String toString() {
+		String s = Station + "\n" + latitude + "\n" + longitude;
+		return s;
+	}
 }
